@@ -11,6 +11,7 @@ pnpm dev
 
 - React
 - Next
+- axios
 - React Hookform
 - Zod
 - Zustand
