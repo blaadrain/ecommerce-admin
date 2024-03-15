@@ -84,8 +84,11 @@ export function DataTable<TData, TValue>({
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                  {row.getVisibleCells().map((cell, i) => (
+                    <TableCell
+                      key={cell.id}
+                      className={i === columns.length - 1 ? "text-right" : ""}
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext(),

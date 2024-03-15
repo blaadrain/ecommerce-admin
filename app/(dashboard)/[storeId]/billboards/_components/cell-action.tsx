@@ -1,20 +1,19 @@
 "use client";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { BillboardColumn } from "./columns";
 import { Button } from "@/components/ui/button";
-import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
+import { Copy, Edit, Trash } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
 import AlertModal from "@/components/modals/alert-modal";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
 
 type CellActionProps = {
   row: BillboardColumn;
@@ -59,33 +58,38 @@ const CellAction: React.FC<CellActionProps> = ({ row }) => {
         onConfirm={onDelete}
         isLoading={isLoading}
       />
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0">
-            <span className="sr-only">Open menu</span>
-            <MoreHorizontal className="h-4 w-4" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem
-            onClick={() =>
-              router.push(`/${params.storeId}/billboards/${row.id}`)
-            }
-          >
-            <Edit className="mr-2 h-4 w-4" />
-            Update
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => onCopy(row.id)}>
-            <Copy className="mr-2 h-4 w-4" />
-            Copy ID
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setIsOpen(true)}>
-            <Trash className="mr-2 h-4 w-4" />
-            Delete
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() =>
+                router.push(`/${params.storeId}/billboards/${row.id}`)
+              }
+            >
+              <Edit className="h-4 w-4" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Update</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant="ghost" size="icon" onClick={() => onCopy(row.id)}>
+              <Copy className="h-4 w-4" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Copy ID</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant="ghost" size="icon" onClick={() => setIsOpen(true)}>
+              <Trash className="h-4 w-4" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Delete</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </>
   );
 };
