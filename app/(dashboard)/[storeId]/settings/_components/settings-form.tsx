@@ -70,7 +70,8 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ store }) => {
       toast({ title: "Store deleted" });
     } catch (error) {
       toast({
-        title: "Make sure you removed all products and categories first",
+        title: "Failed to delete a store",
+        description: "Make sure you removed all products and categories first",
       });
     } finally {
       setIsLoading(false);

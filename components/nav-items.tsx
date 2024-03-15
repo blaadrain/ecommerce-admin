@@ -17,6 +17,13 @@ const NavItems = ({
       active: pathname === `/${params.storeId}`,
     },
     {
+      href: `/${params.storeId}/billboards`,
+      label: "Billboards",
+      active:
+        pathname === `/${params.storeId}/billboards` ||
+        pathname === `/${params.storeId}/billboards/new`,
+    },
+    {
       href: `/${params.storeId}/settings`,
       label: "Settings",
       active: pathname === `/${params.storeId}/settings`,
