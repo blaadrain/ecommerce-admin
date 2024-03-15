@@ -63,8 +63,6 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ billboard }) => {
     try {
       setIsLoading(true);
 
-      console.log(values);
-
       if (billboard) {
         await axios.patch(
           `/api/${params.storeId}/billboards/${params.billboardId}`,
@@ -74,6 +72,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ billboard }) => {
         await axios.post(`/api/${params.storeId}/billboards`, values);
       }
 
+      router.push(`/${params.storeId}/billboards`);
       router.refresh();
       toast({ title: toastMessage });
     } catch (error) {
@@ -90,8 +89,8 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ billboard }) => {
       await axios.delete(
         `/api/${params.storeId}/billboards/${params.billboardId}`,
       );
+      router.push(`/${params.storeId}/billboards/`);
       router.refresh();
-      router.push("/");
       toast({ title: "Billboard deleted" });
     } catch (error) {
       toast({
@@ -174,7 +173,6 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ billboard }) => {
           </Button>
         </form>
       </Form>
-      <Separator />
     </>
   );
 };
