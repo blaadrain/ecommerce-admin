@@ -44,8 +44,8 @@ const StoreSwitcher = ({ className, stores = [] }: StoreSwitcherType) => {
   );
 
   const onStoreSelect = (store: { value: string; label: string }) => {
-    setIsOpen(false);
     router.push(`/${store.value}`);
+    setIsOpen(false);
   };
 
   return (
