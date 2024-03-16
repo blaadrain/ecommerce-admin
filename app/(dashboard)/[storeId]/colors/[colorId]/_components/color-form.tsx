@@ -155,7 +155,7 @@ const ColorForm: React.FC<ColorFormProps> = ({ color }) => {
                         {...field}
                       />
                       <div
-                        className="h-[40px] w-[40px] shrink-0 rounded-lg border"
+                        className="h-[40px] w-[40px] shrink-0 rounded-md border"
                         style={{ backgroundColor: field.value || "#AAF0D1" }}
                       />
                     </div>

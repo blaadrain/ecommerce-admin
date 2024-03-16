@@ -17,9 +17,9 @@ const NavItems = ({
       active: pathname === `/${params.storeId}`,
     },
     {
-      href: `/${params.storeId}/billboards`,
-      label: "Billboards",
-      active: pathname.startsWith(`/${params.storeId}/billboards`),
+      href: `/${params.storeId}/products`,
+      label: "Products",
+      active: pathname.startsWith(`/${params.storeId}/products`),
     },
     {
       href: `/${params.storeId}/categories`,
@@ -35,6 +35,11 @@ const NavItems = ({
       href: `/${params.storeId}/colors`,
       label: "Colors",
       active: pathname.startsWith(`/${params.storeId}/colors`),
+    },
+    {
+      href: `/${params.storeId}/billboards`,
+      label: "Billboards",
+      active: pathname.startsWith(`/${params.storeId}/billboards`),
     },
     {
       href: `/${params.storeId}/settings`,

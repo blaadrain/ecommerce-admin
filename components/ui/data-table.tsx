@@ -87,7 +87,11 @@ export function DataTable<TData, TValue>({
                   {row.getVisibleCells().map((cell, i) => (
                     <TableCell
                       key={cell.id}
-                      className={i === columns.length - 1 ? "text-right" : ""}
+                      className={
+                        i === columns.length - 1
+                          ? "flex shrink-0 justify-end"
+                          : ""
+                      }
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
