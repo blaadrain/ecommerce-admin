@@ -3,28 +3,28 @@
 import { ColumnDef } from "@tanstack/react-table";
 import CellAction from "./cell-action";
 
-export type BillboardColumn = {
+export type ColorColumn = {
   id: string;
-  label: string;
-  backgroundColor: string;
+  name: string;
+  value: string;
   createdAt: string;
 };
 
-export const columns: ColumnDef<BillboardColumn>[] = [
+export const columns: ColumnDef<ColorColumn>[] = [
   {
-    accessorKey: "label",
-    header: "Label",
+    accessorKey: "name",
+    header: "Name",
   },
   {
-    accessorKey: "backgroundColor",
-    header: "Background",
+    accessorKey: "value",
+    header: "Value",
     cell: ({ row }) => (
       <div className="flex items-center gap-x-2">
         <div
           className="h-6 w-6 rounded-lg border"
-          style={{ backgroundColor: row.original.backgroundColor }}
+          style={{ backgroundColor: row.original.value }}
         />
-        {row.original.backgroundColor}
+        {row.original.value}
       </div>
     ),
   },

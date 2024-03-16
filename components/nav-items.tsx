@@ -32,6 +32,11 @@ const NavItems = ({
       active: pathname.startsWith(`/${params.storeId}/sizes`),
     },
     {
+      href: `/${params.storeId}/colors`,
+      label: "Colors",
+      active: pathname.startsWith(`/${params.storeId}/colors`),
+    },
+    {
       href: `/${params.storeId}/settings`,
       label: "Settings",
       active: pathname === `/${params.storeId}/settings`,

@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Billboard } from "@prisma/client";
+import { Color } from "@prisma/client";
 import axios from "axios";
 import { Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
@@ -23,56 +23,50 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-type BillboardFormProps = {
-  billboard: Billboard | null;
+type ColorFormProps = {
+  color: Color | null;
 };
 
-type BillboardFormValues = z.infer<typeof formSchema>;
+type ColorFormValues = z.infer<typeof formSchema>;
 
 const formSchema = z.object({
-  label: z.string().min(1, { message: "Field required" }),
-  backgroundColor: z.string().refine(
-    (value) => {
-      if (value === "") return true;
-      else return /^#([A-Fa-f0-9]{6})$/.test(value);
-    },
-    { message: "Invalid hex-code format" },
-  ),
+  name: z.string().min(1, { message: "Field required" }),
+  value: z
+    .string()
+    .regex(/^#([A-Fa-f0-9]{6})$/, { message: "Invalid hex-code format" }),
 });
 
-const BillboardForm: React.FC<BillboardFormProps> = ({ billboard }) => {
+const ColorForm: React.FC<ColorFormProps> = ({ color }) => {
   const params = useParams();
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const title = billboard ? "Edit billboard" : "Create billboard";
-  const description = billboard
-    ? "Edit a billboard"
-    : "Add a new billboard to your store";
-  const toastMessage = billboard ? "Billboard updated" : "Billboard created";
-  const action = billboard ? "Save changes" : "Create";
+  const title = color ? "Edit color" : "Create color";
+  const description = color ? "Edit a color" : "Add a new color to your store";
+  const toastMessage = color ? "Color updated" : "Color created";
+  const action = color ? "Save changes" : "Create";
 
-  const form = useForm<BillboardFormValues>({
+  const form = useForm<ColorFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: billboard || { label: "", backgroundColor: "" },
+    defaultValues: color || { name: "", value: "" },
   });
 
-  const onSubmit = async (values: BillboardFormValues) => {
+  const onSubmit = async (values: ColorFormValues) => {
     try {
       setIsLoading(true);
 
-      if (billboard) {
+      if (color) {
         await axios.patch(
-          `/api/${params.storeId}/billboards/${params.billboardId}`,
+          `/api/${params.storeId}/colors/${params.colorId}`,
           values,
         );
       } else {
-        await axios.post(`/api/${params.storeId}/billboards`, values);
+        await axios.post(`/api/${params.storeId}/colors`, values);
       }
 
-      router.push(`/${params.storeId}/billboards`);
+      router.push(`/${params.storeId}/colors`);
       router.refresh();
       toast({ title: toastMessage });
     } catch (error) {
@@ -86,17 +80,15 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ billboard }) => {
   const onDelete = async () => {
     try {
       setIsLoading(true);
-      await axios.delete(
-        `/api/${params.storeId}/billboards/${params.billboardId}`,
-      );
-      router.push(`/${params.storeId}/billboards/`);
+      await axios.delete(`/api/${params.storeId}/colors/${params.colorId}`);
+      router.push(`/${params.storeId}/colors/`);
       router.refresh();
-      toast({ title: "Billboard deleted" });
+      toast({ title: "Color deleted" });
     } catch (error) {
       toast({
-        title: "Failed to delete a billboard",
+        title: "Failed to delete a color",
         description:
-          "Make sure you removed all categories using this billboard first",
+          "Make sure you removed all products using this color first",
       });
     } finally {
       setIsLoading(false);
@@ -114,7 +106,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ billboard }) => {
       />
       <div className="flex items-center justify-between">
         <Heading title={title} description={description} />
-        {billboard && (
+        {color && (
           <Button
             disabled={isLoading}
             onClick={() => setIsOpen(true)}
@@ -134,14 +126,14 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ billboard }) => {
           <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}
-              name="label"
+              name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Label</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      placeholder="Billboard label"
+                      placeholder="Color name"
                       {...field}
                     />
                   </FormControl>
@@ -151,10 +143,10 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ billboard }) => {
             />
             <FormField
               control={form.control}
-              name="backgroundColor"
+              name="value"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Background color (hex-code)</FormLabel>
+                  <FormLabel>Color (hex-code)</FormLabel>
                   <FormControl>
                     <div className="flex items-center gap-x-4">
                       <Input
@@ -183,4 +175,4 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ billboard }) => {
   );
 };
 
-export default BillboardForm;
+export default ColorForm;
