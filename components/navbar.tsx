@@ -16,7 +16,7 @@ const Navbar = async () => {
   });
 
   return (
-    <nav className="border-b">
+    <div className="border-b">
       <div className="flex h-16 items-center px-4">
         <StoreSwitcher stores={stores} />
         <NavItems className="mx-6" />
@@ -24,7 +24,7 @@ const Navbar = async () => {
           <UserButton afterSignOutUrl="/" />
         </div>
       </div>
-    </nav>
+    </div>
   );
 };
 

@@ -26,12 +26,14 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   searchKey: string;
+  hasActions?: boolean;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   searchKey,
+  hasActions = true,
 }: DataTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -88,7 +90,7 @@ export function DataTable<TData, TValue>({
                     <TableCell
                       key={cell.id}
                       className={
-                        i === columns.length - 1
+                        i === columns.length - 1 && hasActions
                           ? "flex shrink-0 justify-end"
                           : ""
                       }
