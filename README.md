@@ -5,15 +5,15 @@
 Key Features:
 
 - Serves as CMS, Admin and API
-- Ability to control mulitple vendors / stores through this single CMS
-- Ability to create, update and delete Products, Categories & Billboards
-- Ability to create, update and delete filters such as "Color" and "Size", and then match them in the "Product" creation form
-- Ability to search through all categories, products, sizes, colors, billboards with included pagination using TanStack tables
-- Ability to upload multiple images for products, and change them whenever you want (in development)
-- Ability to control which products are "featured" so they show on the homepage
-- Ability to control which products are "archived" so they never show anywhere in the store
-- Ability to see your orders, sales, products left in stock
-- Ability to see graphs of your revenue
+- Control mulitple vendors / stores through this single CMS
+- Create, update and delete Products, Categories & Billboards
+- Create, update and delete filters such as "Color" and "Size", and then match them in the "Product" creation form
+- Search through all categories, products, sizes, colors, billboards with included pagination using TanStack tables
+- Upload multiple images for products, and change them whenever you want (in development)
+- Control which products are "featured" so they show on the homepage
+- Control which products are "archived" so they never show anywhere in the store
+- See your orders, sales, products left in stock
+- See graphs of your revenue
 - Authentication via Clerk
 - MySQL + Prisma setup
 
