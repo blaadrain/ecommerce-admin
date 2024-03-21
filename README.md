@@ -2,6 +2,8 @@
 
 ![dashboard](https://github.com/blaadrain/ecommerce-admin/assets/96272057/694b6f08-e1d4-4266-8e82-abf8addbd745)
 
+## Link to Store: https://github.com/blaadrain/ecommerce-store
+
 Key Features:
 
 - Serves as CMS, Admin and API
